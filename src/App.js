@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import styled from "styled-components";
 import "./App.css";
+import Instructions from "./Instructions";
 import Spinner from "./Spinner";
 
 const StyledInput = styled.input`
@@ -34,11 +35,15 @@ function App() {
   const params = new URLSearchParams(window.location.search);
 
   const poll = () => {
+    if (sessionId === null) return;
     fetch(`${apiUrl}/sessions/${sessionId}`)
       .then((res) => res.json())
       .then((payload) => {
-        if (payload?.data && payload.data.match(urlRegex)) {
-          window.location.href = payload.data;
+        if (payload?.data) {
+          if (payload.data.match(urlRegex)) {
+            window.location.href = payload.data;
+          }
+          setTextField(payload.data);
         }
       });
   };
@@ -66,9 +71,6 @@ function App() {
   };
 
   const sendInSession = () => {
-    if (!textField.match(urlRegex)) {
-      return;
-    }
     fetch(`${apiUrl}/sessions/${params.get("session")}`, {
       method: "put",
       body: JSON.stringify({ data: textField }),
@@ -81,8 +83,9 @@ function App() {
       <PasteButton onClick={paste}>Paste from clipboard</PasteButton>
       <StyledInput
         value={textField}
+        onClick={(event) => event.target.select()}
         onChange={(event) => setTextField(event.target.value)}
-        placeholder="Paste a link or have someone scan this!"
+        placeholder="Paste, type or scan"
       />
       {params.get("session") ? (
         <PasteButton onClick={sendInSession}>Send</PasteButton>
@@ -98,6 +101,7 @@ function App() {
       <p>
         QR: {textField !== "" ? textField : `${localUrl}/?session=${sessionId}`}
       </p>
+      <Instructions />
     </div>
   );
 }
