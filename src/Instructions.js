@@ -9,14 +9,15 @@ function Instructions() {
     <>
       <InstructionsHeader>How does this work?</InstructionsHeader>
       <p>
-        This app sends text data from one device to another using a QR code.
+        This app sends links and text from one device to another.
         <br />
-        To send something, type or paste it in the text field, and have the
-        recipient scan the QR code.
+        Scan the session QR code from another device to pair. If pairing is
+        successful, the session's color should match on both devices.
         <br />
-        To receive something, don't type anything, instead have the sender scan
-        your QR code and type or paste on their device. The data will then show
-        up on yours.
+        Any link or text sent from one device will appear on the other.
+        <br />
+        By default, links are automatically opened on both devices. To disable
+        that, uncheck the box above.
       </p>
     </>
   );
