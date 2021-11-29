@@ -19,24 +19,32 @@ const Code = styled.p`
 function Instructions(props) {
   return (
     <Centered>
-      <h4>How does this work?</h4>
+      <h4>What even is this app?</h4>
       <Instruction>
-        This app sends links and text from one device to another.
+        It's a utility for quickly sending a link or text from one device to
+        another.
       </Instruction>
       <Instruction>
-        Scan the session QR code from another device to pair. If pairing is
-        successful, the session's color should match on both devices.
+        It's faster than emailing yourself and doesn't require any typing.
       </Instruction>
       <Instruction>
-        Any link or text sent from one device will appear on the other.
+        Open the app on one device, then scan the code with the other device.
       </Instruction>
       <Instruction>
-        By default, links are automatically opened on both devices. To disable
-        that, uncheck the box above.
+        The background color on each device will match if you're correctly
+        paired.
+      </Instruction>
+      <Instruction>
+        Paste something in the text box and send, it will show up on the other
+        device.
+      </Instruction>
+      <Instruction>
+        Links are automatically opened by default, uncheck the box above to
+        disable.
       </Instruction>
       <h4>No browser?</h4>
       <Instruction>
-        Use this command on the receiving device to get the data.
+        Use this command on the receiving device to get the sent data.
       </Instruction>
       <Code>
         curl {apiUrl}/sessions/{props.sessionId}/raw
