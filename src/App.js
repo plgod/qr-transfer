@@ -13,6 +13,9 @@ function App() {
     new URLSearchParams(window.location.search).get("session")
   );
   const [payload, setPayload] = useState();
+  const [autoFollow, setAutoFollow] = useState(
+    window.localStorage.getItem("autoFollowUrls") !== "false"
+  );
 
   const poll = () => {
     if (sessionId === null) return;
@@ -20,7 +23,7 @@ function App() {
       .then((res) => res.json())
       .then((json) => {
         if (json?.data && json.data !== payload) {
-          if (json.data.match(urlRegex)) {
+          if (json.data.match(urlRegex) && autoFollow) {
             window.location.href = json.data;
           }
           setPayload(json.data);
@@ -57,10 +60,24 @@ function App() {
     });
   };
 
+  const setAutoFollowPreference = (autoFollow) => {
+    window.localStorage.setItem("autoFollowUrls", autoFollow);
+    setAutoFollow(autoFollow);
+  };
+
   return (
     <div className="App">
       <PayloadHandler payload={payload} onSend={sendInSession} />
       <SessionInfo sessionId={sessionId} />
+      <span>
+        <input
+          type="checkbox"
+          id="auto-follow"
+          checked={autoFollow}
+          onChange={(event) => setAutoFollowPreference(event.target.checked)}
+        />
+        <label for="auto-follow"> Auto-follow URL</label>
+      </span>
       <Instructions />
     </div>
   );
