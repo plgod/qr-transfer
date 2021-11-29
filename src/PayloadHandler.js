@@ -30,7 +30,7 @@ function PayloadHandler(props) {
         value={textField}
         onClick={(event) => event.target.select()}
         onChange={(event) => setTextField(event.target.value)}
-        placeholder="Paste, type or scan"
+        placeholder="Paste or type here"
       />
       <SendButton onClick={() => props.onSend(textField)}>Send</SendButton>
     </>

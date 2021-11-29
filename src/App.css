@@ -1,9 +1,5 @@
-body {
-  background-color: #212b28;
-}
-
 .App {
-  margin: 10px;
+  margin: 10px 10px 50px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
