@@ -1,29 +1,10 @@
 import { useEffect, useState } from "react";
-import QRCode from "react-qr-code";
-import styled from "styled-components";
 import "./App.css";
 import Instructions from "./Instructions";
-import Spinner from "./Spinner";
-
-const StyledInput = styled.input`
-  width: 95vw;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 24px;
-
-  text-align: center;
-`;
-
-const PasteButton = styled.button`
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 24px;
-  background-color: orange;
-  color: white;
-`;
+import PayloadHandler from "./PayloadHandler";
+import SessionInfo from "./SessionInfo";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-const localUrl = process.env.REACT_APP_LOCAL_URL;
 const urlRegex =
   /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 
@@ -31,19 +12,18 @@ function App() {
   const [sessionId, setSessionId] = useState(
     new URLSearchParams(window.location.search).get("session")
   );
-  const [textField, setTextField] = useState("");
-  const params = new URLSearchParams(window.location.search);
+  const [payload, setPayload] = useState();
 
   const poll = () => {
     if (sessionId === null) return;
     fetch(`${apiUrl}/sessions/${sessionId}`)
       .then((res) => res.json())
-      .then((payload) => {
-        if (payload?.data) {
-          if (payload.data.match(urlRegex)) {
-            window.location.href = payload.data;
+      .then((json) => {
+        if (json?.data && json.data !== payload) {
+          if (json.data.match(urlRegex)) {
+            window.location.href = json.data;
           }
-          setTextField(payload.data);
+          setPayload(json.data);
         }
       });
   };
@@ -59,48 +39,28 @@ function App() {
         const res = await fetch(`${apiUrl}/sessions`, { method: "post" });
         const data = await res.json();
         setSessionId(data.sessionId);
+
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set("session", data.sessionId);
+        window.history.replaceState({ path: newUrl.href }, "", newUrl.href);
       }
     }
 
     joinOrCreateSession();
   }, [sessionId]);
 
-  const paste = async () => {
-    const contents = await navigator.clipboard.readText();
-    setTextField(contents);
-  };
-
-  const sendInSession = () => {
-    fetch(`${apiUrl}/sessions/${params.get("session")}`, {
+  const sendInSession = (payload) => {
+    fetch(`${apiUrl}/sessions/${sessionId}`, {
       method: "put",
-      body: JSON.stringify({ data: textField }),
+      body: JSON.stringify({ data: payload }),
       headers: { "Content-Type": "application/json" },
     });
   };
 
   return (
     <div className="App">
-      <PasteButton onClick={paste}>Paste from clipboard</PasteButton>
-      <StyledInput
-        value={textField}
-        onClick={(event) => event.target.select()}
-        onChange={(event) => setTextField(event.target.value)}
-        placeholder="Paste, type or scan"
-      />
-      {params.get("session") ? (
-        <PasteButton onClick={sendInSession}>Send</PasteButton>
-      ) : sessionId ? (
-        <QRCode
-          value={
-            textField !== "" ? textField : `${localUrl}/?session=${sessionId}`
-          }
-        />
-      ) : (
-        <Spinner />
-      )}
-      <p>
-        QR: {textField !== "" ? textField : `${localUrl}/?session=${sessionId}`}
-      </p>
+      <PayloadHandler payload={payload} onSend={sendInSession} />
+      <SessionInfo sessionId={sessionId} />
       <Instructions />
     </div>
   );
