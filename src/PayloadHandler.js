@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+const Flexbox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 const StyledInput = styled.input`
   flex-grow: 1;
   padding: 10px;
   border-radius: 10px;
-  font-size: 24px;
+  font-size: 16px;
 
   text-align: center;
 `;
@@ -13,7 +18,7 @@ const StyledInput = styled.input`
 const SendButton = styled.button`
   padding: 10px;
   border-radius: 10px;
-  font-size: 24px;
+  font-size: 20px;
   background-color: orange;
   color: white;
 `;
@@ -25,7 +30,7 @@ function PayloadHandler(props) {
   }, [props.payload]);
 
   return (
-    <>
+    <Flexbox>
       <StyledInput
         value={textField}
         onClick={(event) => event.target.select()}
@@ -33,7 +38,7 @@ function PayloadHandler(props) {
         placeholder="Paste or type here"
       />
       <SendButton onClick={() => props.onSend(textField)}>Send</SendButton>
-    </>
+    </Flexbox>
   );
 }
 

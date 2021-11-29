@@ -7,7 +7,7 @@ import Spinner from "./Spinner";
 const localUrl = process.env.REACT_APP_LOCAL_URL;
 
 const SessionCard = styled.div`
-  min-width: 30vw;
+  width: 80vw;
   padding: 1rem;
   border: 1px solid black;
   border-radius: 10px;

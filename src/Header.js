@@ -3,8 +3,9 @@ import styled from "styled-components";
 const Banner = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  max-width: 100%;
   gap: 0.5rem;
+  padding: 1rem;
   justify-content: space-between;
   align-items: center;
   background-color: #1ba260;
@@ -13,13 +14,14 @@ const Banner = styled.div`
 
 const Title = styled.h1`
   color: white;
-  margin-left: 1rem;
+  margin: 0;
 `;
 
 const Subtitle = styled.p`
   color: white;
-  margin-right: 1rem;
+  margin: 0;
   font-style: italic;
+  font-size: 12px;
 `;
 
 function Header() {
