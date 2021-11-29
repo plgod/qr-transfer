@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import styled from "styled-components";
 import "./App.css";
+import Spinner from "./Spinner";
 
 const StyledInput = styled.input`
   width: 95vw;
@@ -85,12 +86,14 @@ function App() {
       />
       {params.get("session") ? (
         <PasteButton onClick={sendInSession}>Send</PasteButton>
-      ) : (
+      ) : sessionId ? (
         <QRCode
           value={
             textField !== "" ? textField : `${localUrl}/?session=${sessionId}`
           }
         />
+      ) : (
+        <Spinner />
       )}
       <p>
         QR: {textField !== "" ? textField : `${localUrl}/?session=${sessionId}`}
