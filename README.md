@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+# QR Transfer - Better than emailing yourself
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a small utility web app used to transfer URLs and plain text from one device to another.
 
-## Available Scripts
+This web app requires [the backend project](https://github.com/plgod/qr-transfer-node) to be deployed and accessible.
 
-In the project directory, you can run:
+## How to use
 
-### `yarn start`
+Follow along with the live app at http://bit.ly/qr-transfer.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Open the app on one device (e.g. your computer). A unique QR code will be displayed.
+1. Scan this QR code from a device with a camera (e.g. your phone). You will land on the same page with the same QR code on the same-colored background.
+1. On either device, you can now enter something in the text box and hit Send to have it show up on the other one. (If it's an URL, both devices will instead be redirected there unless the checkbox in unchecked)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Other features that are totally not side-effects
 
-### `yarn test`
+- You are not limited to 2 devices. You can scan the QR code from any number of devices and they will all receive the data sent from any device.
+- You can link 2 devices that don't have a camera by using your phone to redirect one of them to the other's page. See in-app instructions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Known issues
 
-### `yarn build`
+### No error management
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The app is optimistic and expects everything to work. Behavior in case of internal or external error is undefined.
