@@ -31,7 +31,7 @@ function SessionInfo(props) {
 
   const poll = () => {
     if (props.sessionId === null) return;
-    fetch(`${apiUrl}/sessions/${props.sessionId}`)
+    fetch(`${apiUrl}/sessions/${props.sessionId}.json`)
       .then((res) => res.json())
       .then((json) => {
         if (json?.data && json.data !== payload) {
@@ -49,7 +49,7 @@ function SessionInfo(props) {
   });
 
   const sendInSession = (payload) => {
-    fetch(`${apiUrl}/sessions/${props.sessionId}`, {
+    fetch(`${apiUrl}/sessions/${props.sessionId}.json`, {
       method: "put",
       body: JSON.stringify({ data: payload }),
       headers: { "Content-Type": "application/json" },

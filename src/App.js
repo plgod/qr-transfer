@@ -27,12 +27,15 @@ function App() {
   useEffect(() => {
     async function joinOrCreateSession() {
       if (!sessionId) {
-        const res = await fetch(`${apiUrl}/sessions`, { method: "post" });
-        const data = await res.json();
-        setSessionId(data.sessionId);
+        const sessionId = Math.floor((Math.random() * 100000) % 100000);
+        setSessionId(sessionId);
+        await fetch(`${apiUrl}/sessions/${sessionId}.json`, {
+          method: "put",
+          body: JSON.stringify({ data: null }),
+        });
 
         const newUrl = new URL(window.location.href);
-        newUrl.searchParams.set("session", data.sessionId);
+        newUrl.searchParams.set("session", sessionId);
         window.history.replaceState({ path: newUrl.href }, "", newUrl.href);
       }
     }

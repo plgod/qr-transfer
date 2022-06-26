@@ -47,7 +47,7 @@ function Instructions(props) {
         Use this command on the receiving device to get the sent data.
       </Instruction>
       <Code>
-        curl {apiUrl}/sessions/{props.sessionId}/raw
+        curl {apiUrl}/sessions/{props.sessionId}/data
       </Code>
       <h4>No camera on either device?</h4>
       <Instruction>
