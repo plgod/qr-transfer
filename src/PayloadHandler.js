@@ -3,16 +3,15 @@ import styled from "styled-components";
 
 const Flexbox = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled.textarea`
   flex-grow: 1;
   padding: 10px;
   border-radius: 10px;
-  font-size: 16px;
-
-  text-align: center;
+  min-height: 8rem;
 `;
 
 const SendButton = styled.button`

@@ -60,11 +60,12 @@ function SessionInfo(props) {
     <SessionCard sessionId={props.sessionId}>
       {props.sessionId ? (
         <>
-          <PayloadHandler payload={payload} onSend={sendInSession} />
-
-          <h2>Scan to pair:</h2>
+          <h2>1) Scan to pair</h2>
           <QRCode value={sessionUrl} onClick={copyUrl} />
           <h5>{copied ? "Copied!" : "Click QR code to copy URL"}</h5>
+
+          <h2>2) Type or paste below then hit Send</h2>
+          <PayloadHandler payload={payload} onSend={sendInSession} />
         </>
       ) : (
         <Spinner />
