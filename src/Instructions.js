@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-const localUrl = process.env.REACT_APP_LOCAL_URL;
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Centered = styled.div`
