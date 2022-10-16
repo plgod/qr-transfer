@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./App.css";
+import Header from "./Header";
 import Instructions from "./Instructions";
 import SessionInfo from "./SessionInfo";
 import Spinner from "./Spinner";
@@ -16,12 +17,13 @@ const NewSession = styled.button`
   box-shadow: 2px 2px 8px -3px #000;
 `;
 
+const Section = styled.div`
+  margin: 10px 10px 20px 10px;
+`
+
 function App() {
   const [sessionId, setSessionId] = useState(
     new URLSearchParams(window.location.search).get("session")
-  );
-  const [autoFollow, setAutoFollow] = useState(
-    window.localStorage.getItem("autoFollowUrls") !== "false"
   );
 
   useEffect(() => {
@@ -43,32 +45,27 @@ function App() {
     joinOrCreateSession();
   }, [sessionId]);
 
-  const setAutoFollowPreference = (autoFollow) => {
-    window.localStorage.setItem("autoFollowUrls", autoFollow);
-    setAutoFollow(autoFollow);
-  };
-
   return (
-    <div className="App">
-      <NewSession onClick={() => setSessionId(null)}>
-        Generate new code
-      </NewSession>
-      {sessionId ? (
-        <SessionInfo sessionId={sessionId} autoFollow={autoFollow} />
-      ) : (
-        <Spinner />
-      )}
-      <span>
-        <input
-          type="checkbox"
-          id="auto-follow"
-          checked={autoFollow}
-          onChange={(event) => setAutoFollowPreference(event.target.checked)}
-        />
-        <label for="auto-follow"> Auto-follow URL</label>
-      </span>
-      <Instructions sessionId={sessionId} />
-    </div>
+    <>
+      <Header />
+      <div className="App">
+        <Section>
+          <NewSession onClick={() => setSessionId(null)}>
+            Generate new code
+          </NewSession>
+        </Section>
+        <Section>
+          {sessionId ? (
+            <SessionInfo sessionId={sessionId} />
+          ) : (
+            <Spinner />
+          )}
+        </Section>
+        <Section>
+          <Instructions sessionId={sessionId} />
+        </Section>
+      </div>
+    </>
   );
 }
 

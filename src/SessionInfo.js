@@ -35,9 +35,6 @@ function SessionInfo(props) {
       .then((res) => res.json())
       .then((json) => {
         if (json?.data && json.data !== payload) {
-          if (json.data.match(urlRegex) && props.autoFollow) {
-            window.location.href = json.data;
-          }
           setPayload(json.data);
         }
       });

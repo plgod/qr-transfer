@@ -8,17 +8,17 @@ const Banner = styled.div`
   padding: 1rem;
   justify-content: space-between;
   align-items: center;
-  background-color: #1ba260;
-  box-shadow: 0px -4px 10px 5px;
+  background-color: #303030;
+  box-shadow: 0px -4px 10px 0px;
 `;
 
 const Title = styled.h1`
-  color: white;
+  color: #777;
   margin: 0;
 `;
 
 const Subtitle = styled.p`
-  color: white;
+  color: #777;
   margin: 0;
   font-style: italic;
   font-size: 12px;
