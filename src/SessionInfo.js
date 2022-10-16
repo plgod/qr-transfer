@@ -16,8 +16,6 @@ const SessionCard = styled.div`
 `;
 
 const apiUrl = process.env.REACT_APP_API_URL;
-const urlRegex =
-  /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 
 function SessionInfo(props) {
   const sessionUrl = `${localUrl}/?session=${props.sessionId}`;
