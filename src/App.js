@@ -21,6 +21,12 @@ const Section = styled.div`
   margin: 10px 10px 20px 10px;
 `
 
+const Flexbox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%
+`
+
 function App() {
   const [sessionId, setSessionId] = useState(
     new URLSearchParams(window.location.search).get("session")
@@ -46,7 +52,7 @@ function App() {
   }, [sessionId]);
 
   return (
-    <>
+    <Flexbox>
       <Header />
       <div className="App">
         <Section>
@@ -65,7 +71,7 @@ function App() {
           <Instructions sessionId={sessionId} />
         </Section>
       </div>
-    </>
+    </Flexbox>
   );
 }
 
